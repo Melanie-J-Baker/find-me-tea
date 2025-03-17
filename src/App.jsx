@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
-import Markers from "./Markers";
+import Markers from './Markers';
+import teaImage from './assets/tea.png';
 
 function App() {
   const [userLocation, setUserLocation] = useState(null);
@@ -64,6 +65,7 @@ function App() {
 
   return (
     <>
+      <img src={teaImage} className='mainImage'></img>
       <h1 className='mainHeading'>Find me tea!</h1>
       <p>Find your nearest tea rooms, cafes, diners, and other places selling tea near you</p>
       <div className='findMeDiv'>
