@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import Markers from './Markers';
@@ -10,6 +10,14 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [apiKey, setApiKey] = useState(null);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/google-maps-api-key')
+      .then((response) => response.json())
+      .then((data) => setApiKey(data.apiKey))
+      .catch((err) => setError('Failed to load API key'));
+  }, [])
 
   const getLocationsOfTea = () => {
     if (navigator.geolocation) {
@@ -21,31 +29,23 @@ function App() {
           setUserLocation({ latitude, longitude});
           // fetch request to get locations of tea from Google Places API Nearby Search
           setLoading(true);
-          fetch('https://places.googleapis.com/v1/places:searchNearby', {
+          // send request to API
+          fetch('http://localhost:3000/search', {
             mode: 'cors',
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
-              'X-Goog-Api-Key': 'AIzaSyCdwRoAX7e0j7TwZx-cg8ZMHHh73bMkt-c',
-              'X-Goog-FieldMask': ['places.displayName', 'places.location', 'places.formattedAddress', 'places.id']
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              includedTypes: ['breakfast_restaurant', 'cafe', 'cat_cafe', 'coffee_shop', 'diner', 'dog_cafe', 'tea_house'],
-              maxResultCount: 10,
-              locationRestriction: {
-                circle: {
-                  center: {
-                    latitude,
-                    longitude
-                  },
-                  radius: 2000.0
-                }
-              }
+              latitude,
+              longitude
             })
           })
-          .then((response) => response.json())
-          .then((data) => setTeaLocations(data.places))
-          .catch((error) => setError(error.msg))
+          .then((response) => {
+            return response.json()
+          })
+          .then((data) => setTeaLocations(data.places || []))
+          .catch((error) => setError(error.message))
           .finally(() => setLoading(false))
         },
         (err) => {
@@ -67,28 +67,30 @@ function App() {
 
   return (
     <>
-      <img src={teaImage} className='mainImage'></img>
+      <img src={teaImage} className='mainImage' alt='A cup of tea with a saucer'></img>
       <h1 className='mainHeading'>Find me tea</h1>
       <p className='subheading'>Find your nearest tea rooms, cafes, diners, and other places selling tea within a 2km radius</p>
       <button className='findMeTeaBtn' onClick={getLocationsOfTea}>
-        Find tea near me
+        {loading ? "Finding..." : "Find tea near me"}
       </button>
-      {loading && <h2>Loading...</h2>}
-      {teaLocations && (
+      {loading ? <h2>Loading...</h2> : teaLocations && (
         <div className='locationsDiv'>
-          <APIProvider apiKey={'AIzaSyCdwRoAX7e0j7TwZx-cg8ZMHHh73bMkt-c'} onLoad={() => console.log('Maps API has loaded.')}>
-            <div className='mapContainer'>
-              <Map
-                defaultZoom={13}
-                defaultCenter={{ lat: userLocation.latitude, lng: userLocation.longitude }}
-                mapId='5a92b3e52305b0d4'
-              >
-                <Markers teaLocations={teaLocations} handleLocationClick={handleLocationClick} selectedLocation={selectedLocation}/>
-              </Map>
-            </div>
-          </APIProvider>
+          {userLocation && (
+            <APIProvider apiKey={apiKey}>
+              <div className='mapContainer'>
+                <Map
+                  defaultZoom={13}
+                  defaultCenter={{ lat: userLocation.latitude, lng: userLocation.longitude }}
+                  mapId='5a92b3e52305b0d4'
+                >
+                  <Markers teaLocations={teaLocations} handleLocationClick={handleLocationClick} selectedLocation={selectedLocation}/>
+                </Map>
+              </div>
+            </APIProvider>
+          )}
+          
           {teaLocations.map((teaLocation) => (
-            <div className={selectedLocation == teaLocation.id ? "selectedLocationListItem" : "locationListItem"} key={teaLocation.id} onClick={() => handleLocationClick(teaLocation.id)}>
+            <div className={selectedLocation === teaLocation.id ? "selectedLocationListItem" : "locationListItem"} key={teaLocation.id} onClick={() => handleLocationClick(teaLocation.id)}>
               <p className="locationName">{teaLocation.displayName.text}</p>
               <p className="locationAddress">{teaLocation.formattedAddress}</p>
             </div>
