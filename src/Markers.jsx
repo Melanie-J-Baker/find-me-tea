@@ -1,6 +1,6 @@
 import { AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 
-const Markers = ({teaLocations, handleMarkerClick}) => {
+const Markers = ({teaLocations, handleLocationClick, selectedLocation}) => {
   return (
     <>
       {teaLocations && (
@@ -9,9 +9,9 @@ const Markers = ({teaLocations, handleMarkerClick}) => {
           key={teaLocation.id} 
           position={{ lat: teaLocation.location.latitude, lng: teaLocation.location.longitude }}
           clickable={true}
-          onClick={() => handleMarkerClick(teaLocation.id)}
+          onClick={() => handleLocationClick(teaLocation.id)}
         >
-          <Pin background={'#FBBC04'} glyphColor={'#000'} borderColor={'#000'} />
+          <Pin className="pin" background={selectedLocation == teaLocation.id ? '#ee9b63' : '#FA0909'} glyphColor={'#000'} borderColor={'#000'} />
         </AdvancedMarker>
       )))}
     </>
