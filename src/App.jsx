@@ -68,37 +68,34 @@ function App() {
   return (
     <>
       <img src={teaImage} className='mainImage'></img>
-      <h1 className='mainHeading'>Find me tea!</h1>
-      <h3>Find your nearest tea rooms, cafes, diners, and other places selling tea near you*</h3>
-      <h5>* More specifically, within a 2km radius</h5>
-      <div className='findMeDiv'>
-        <button className='findMeTeaBtn' onClick={getLocationsOfTea}>
-          Find tea near me
-        </button>
-        {loading && <h2>Loading...</h2>}
-        {teaLocations && (
-          <div className='locationsDiv'>
-            <APIProvider apiKey={'AIzaSyCdwRoAX7e0j7TwZx-cg8ZMHHh73bMkt-c'} onLoad={() => console.log('Maps API has loaded.')}>
-              <div className='mapContainer'>
-                <Map
-                  defaultZoom={13}
-                  defaultCenter={{ lat: userLocation.latitude, lng: userLocation.longitude }}
-                  mapId='5a92b3e52305b0d4'
-                >
-                  <Markers teaLocations={teaLocations} handleLocationClick={handleLocationClick} selectedLocation={selectedLocation}/>
-                </Map>
-              </div>
-            </APIProvider>
-            {teaLocations.map((teaLocation) => (
-              <div className={selectedLocation == teaLocation.id ? "selectedLocationListItem" : "locationListItem"} key={teaLocation.id} onClick={() => handleLocationClick(teaLocation.id)}>
-                <p className="locationName">{teaLocation.displayName.text}</p>
-                <p className="locationAddress">{teaLocation.formattedAddress}</p>
-              </div>
-            ))}
-          </div>
-        )}
-        {error && <h2>{error}</h2>}
-      </div>
+      <h1 className='mainHeading'>Find me tea</h1>
+      <p className='subheading'>Find your nearest tea rooms, cafes, diners, and other places selling tea within a 2km radius</p>
+      <button className='findMeTeaBtn' onClick={getLocationsOfTea}>
+        Find tea near me
+      </button>
+      {loading && <h2>Loading...</h2>}
+      {teaLocations && (
+        <div className='locationsDiv'>
+          <APIProvider apiKey={'AIzaSyCdwRoAX7e0j7TwZx-cg8ZMHHh73bMkt-c'} onLoad={() => console.log('Maps API has loaded.')}>
+            <div className='mapContainer'>
+              <Map
+                defaultZoom={13}
+                defaultCenter={{ lat: userLocation.latitude, lng: userLocation.longitude }}
+                mapId='5a92b3e52305b0d4'
+              >
+                <Markers teaLocations={teaLocations} handleLocationClick={handleLocationClick} selectedLocation={selectedLocation}/>
+              </Map>
+            </div>
+          </APIProvider>
+          {teaLocations.map((teaLocation) => (
+            <div className={selectedLocation == teaLocation.id ? "selectedLocationListItem" : "locationListItem"} key={teaLocation.id} onClick={() => handleLocationClick(teaLocation.id)}>
+              <p className="locationName">{teaLocation.displayName.text}</p>
+              <p className="locationAddress">{teaLocation.formattedAddress}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      {error && <h2>{error}</h2>}
     </>
   );
 }

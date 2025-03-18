@@ -1,9 +1,16 @@
 #root {
-  --highlight: #ee9b63;
+  --light: #ee9b63;
+  --medium: #663609;
+  --dark: #3a2105;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+.mainHeading {
+  color: var(--light);
+  text-shadow: 3px 3px var(--medium);
 }
 
 .mainImage {
@@ -33,6 +40,7 @@ h5 {
 
 .locationListItem {
   border: 1px solid white;
+  background-color: var(--dark);
   border-radius: 8px;
   padding: 0px 20px;
   margin: 10px;
@@ -47,7 +55,7 @@ h5 {
 }
 
 .selectedLocationListItem {
-  background: var(--highlight);
+  background: var(--light);
   color: #000000;
   border: 1px solid white;
   border-radius: 8px;
