@@ -16,7 +16,7 @@ function App() {
     fetch('http://localhost:3000/google-maps-api-key')
       .then((response) => response.json())
       .then((data) => setApiKey(data.apiKey))
-      .catch((err) => setError('Failed to load API key'));
+      .catch((err) => setError('Failed to load API key. ' + err));
   }, [])
 
   const getLocationsOfTea = () => {
