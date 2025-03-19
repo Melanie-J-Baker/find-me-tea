@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import Markers from './Markers';
-import teaImage from './assets/tea.png';
+import teaImage from './tea.png';
 
 function App() {
   const [userLocation, setUserLocation] = useState(null);
