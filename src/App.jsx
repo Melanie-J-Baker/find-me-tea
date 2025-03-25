@@ -13,7 +13,7 @@ function App() {
   const [apiKey, setApiKey] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/find-me-tea/google-maps-api-key')
+    fetch('https://localhost:3443/find-me-tea/google-maps-api-key')
       .then((response) => response.json())
       .then((data) => setApiKey(data.apiKey))
       .catch((err) => setError('Failed to load API key. ' + err));
@@ -30,7 +30,7 @@ function App() {
           // fetch request to get locations of tea from Google Places API Nearby Search
           setLoading(true);
           // send request to API
-          fetch('http://localhost:3000/find-me-tea/search', {
+          fetch('https://localhost:3443/find-me-tea/search', {
             mode: 'cors',
             method: 'POST',
             headers: {
