@@ -111,7 +111,7 @@ function App() {
                     defaultCenter={{ lat: userLocation.latitude, lng: userLocation.longitude }}
                     mapId='5a92b3e52305b0d4'
                   >
-                    <Markers teaLocations={teaLocations} handleLocationClick={handleLocationClick} selectedLocation={selectedLocation}/>
+                    <Markers userLocation={userLocation} teaLocations={teaLocations} handleLocationClick={handleLocationClick} selectedLocation={selectedLocation} />
                   </Map>
                 </div>
               </APIProvider>
