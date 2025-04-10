@@ -3,8 +3,6 @@
 
 Try the website here: https://mel-baker.co.uk
 
-![Image](https://github.com/user-attachments/assets/e6861ec6-40b7-4419-a9fe-b999f86186ed)
-
 ![Image](https://github.com/user-attachments/assets/eacad696-44b8-4e10-ba03-6c70543e4357)
 
 ![Image](https://github.com/user-attachments/assets/594a9d23-feae-49d2-8dfb-a7bf10613151)
