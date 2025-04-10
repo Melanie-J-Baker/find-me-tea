@@ -1,2 +1,4 @@
 
-"Find me tea" is an app to find the nearest places selling tea. This is the React frontend component of the project, which makes HTTP requests to an Express server to get locations of places selling tea from the Google Maps Places API (see the backend code here: https://github.com/Melanie-J-Baker/find-me-tea-api). All infrastructure is provisioned and configured using Terraform (see the code here: https://github.com/Melanie-J-Baker/find-me-tea-terraform), with frontend code being hosted on Amazon S3, and backend code deployed via Lambda functions using the Amazon API Gateway. 
+"Find me tea" is an app to find the nearest places selling tea. This is the React frontend component of the app, which is hosted using Amazon S3, Route 53, and CloudFront and makes HTTP requests to a REST API (created using Amazon API Gateway and AWS Lambda) to get the Google API key and locations of nearby places selling tea from the Google Maps Places API. All infrastructure is provisioned and configured using Terraform (see the code here: https://github.com/Melanie-J-Baker/find-me-tea-terraform).
+
+Try the website here: https://mel-baker.co.uk
