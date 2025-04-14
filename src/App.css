@@ -65,12 +65,12 @@ h5 {
 @media only screen and (max-width: 400px) {
   .mainImage {
     width: 100px;
-    margin: 10px 0px;
+    margin-top: 10px;
   }
 
   .mainHeading {
     padding: 10px 0px;
-    margin: 10px 0px;
+    margin-top: 10px;
   }
 
   .mapContainer {
