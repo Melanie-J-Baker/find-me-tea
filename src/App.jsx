@@ -16,14 +16,12 @@ function App() {
   useEffect(() => {
     fetch('https://api.mel-baker.co.uk/google-maps-api-key/')
     .then((response) => {
-      console.log('API Key Response:', response);
       if (!response.ok) {
         throw new Error('Failed to fetch API key');
       }
       return response.json();
     })
       .then((data) => {
-         console.log('API Key Data:', data);
          if (data && data.body.googleApiKey) {
            setApiKey(data.body.googleApiKey);
            setApiKeyLoading(false);
@@ -32,7 +30,6 @@ function App() {
          }
       })
       .catch((err) => {
-        console.error('Error fetching API key:', err);
         setError('Failed to load API key. ' + err)
         setApiKeyLoading(false);
       });
@@ -82,12 +79,6 @@ function App() {
       setSelectedLocation(id);
     }
   }
-
-  console.log('apiKeyLoading:', apiKeyLoading);
-  console.log('apiKey:', apiKey);
-  console.log('teaLocations:', teaLocations);
-  console.log('locationsLoading:', locationsLoading);
-  console.log('error:', error);
 
   return (
     <>
